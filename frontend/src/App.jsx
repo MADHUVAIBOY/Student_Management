@@ -1,0 +1,88 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import DashboardPage from './pages/DashboardPage';
+import StudentsListPage from './pages/StudentsListPage';
+import AddStudentPage from './pages/AddStudentPage';
+
+/**
+ * App Component — Root component that sets up routing.
+ * 
+ * Routes:
+ *   /           → LoginPage (public)
+ *   /dashboard  → DashboardPage (protected)
+ *   /students   → StudentsListPage (protected)
+ *   /add-student → AddStudentPage (ADMIN only)
+ * 
+ * PrivateRoute: Redirects to login if user is not authenticated.
+ * AdminRoute:   Redirects to dashboard if user is not ADMIN.
+ */
+
+// ─── Protected Route ──────────────────────────────────────────────────────────
+// Checks if user is logged in (username in localStorage)
+function PrivateRoute({ children }) {
+    const username = localStorage.getItem('username');
+    if (!username) {
+        // Not logged in → redirect to login
+        return <Navigate to="/" replace />;
+    }
+    return children;
+}
+
+// ─── Admin Route ──────────────────────────────────────────────────────────────
+// Checks if user is ADMIN
+function AdminRoute({ children }) {
+    const username = localStorage.getItem('username');
+    const role = localStorage.getItem('role');
+
+    if (!username) return <Navigate to="/" replace />;
+    if (role !== 'ADMIN') return <Navigate to="/dashboard" replace />;
+
+    return children;
+}
+
+// ─── App Component ────────────────────────────────────────────────────────────
+function App() {
+    return (
+        <Router>
+            <Routes>
+                {/* Public Route - Login */}
+                <Route path="/" element={<LoginPage />} />
+
+                {/* Protected Route - Dashboard */}
+                <Route
+                    path="/dashboard"
+                    element={
+                        <PrivateRoute>
+                            <DashboardPage />
+                        </PrivateRoute>
+                    }
+                />
+
+                {/* Protected Route - Students List (all logged-in users) */}
+                <Route
+                    path="/students"
+                    element={
+                        <PrivateRoute>
+                            <StudentsListPage />
+                        </PrivateRoute>
+                    }
+                />
+
+                {/* Admin Only Route - Add Student */}
+                <Route
+                    path="/add-student"
+                    element={
+                        <AdminRoute>
+                            <AddStudentPage />
+                        </AdminRoute>
+                    }
+                />
+
+                {/* Catch-all: redirect unknown URLs to login */}
+                <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+        </Router>
+    );
+}
+
+export default App;
