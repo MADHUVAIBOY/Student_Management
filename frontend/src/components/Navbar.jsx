@@ -55,14 +55,14 @@ function Navbar() {
                         👥 Students
                     </Link>
                 </li>
-                {/* Show "Add Student" only if role is ADMIN */}
+                {/* Users Management — ADMIN only */}
                 {role === 'ADMIN' && (
                     <li>
                         <Link
-                            to="/add-student"
-                            className={`nav-link ${isActive('/add-student') ? 'active' : ''}`}
+                            to="/users"
+                            className={`nav-link ${isActive('/users') ? 'active' : ''}`}
                         >
-                            ➕ Add Student
+                            🔑 Users
                         </Link>
                     </li>
                 )}

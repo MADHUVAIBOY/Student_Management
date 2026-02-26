@@ -17,19 +17,18 @@ import api from '../api/axios';
  *   USER:  user1 / user123
  */
 function LoginPage() {
-    // ─── State ───────────────────────────────────────────────────────────────────
+    // ─── State ────
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');       // Error message
-    const [loading, setLoading] = useState(false); // Loading spinner state
+    const [error, setError] = useState('');       
+    const [loading, setLoading] = useState(false); 
 
     const navigate = useNavigate();
 
-    // ─── Login Handler ───────────────────────────────────────────────────────────
+    // ─── Login Handler ────────
     const handleLogin = async (e) => {
-        e.preventDefault(); // Prevent page reload on form submit
+        e.preventDefault(); 
 
-        // Basic validation
         if (!username.trim() || !password.trim()) {
             setError('Please enter both username and password.');
             return;
@@ -39,19 +38,16 @@ function LoginPage() {
         setError('');
 
         try {
-            // POST /api/auth/login with credentials
             const response = await api.post('/auth/login', { username, password });
             const data = response.data;
 
-            // ✅ Store user info in localStorage
             localStorage.setItem('username', data.username);
             localStorage.setItem('role', data.role);
 
-            // Redirect to Dashboard
             navigate('/dashboard');
 
         } catch (err) {
-            // ❌ Show error if login fails
+
             if (err.response && err.response.status === 401) {
                 setError('Invalid username or password. Please try again.');
             } else {
@@ -62,7 +58,7 @@ function LoginPage() {
         }
     };
 
-    // ─── Quick Login Helper (for demo) ───────────────────────────────────────────
+    // ─── Quick Login Helper (for demo) ────
     const quickLogin = (role) => {
         if (role === 'admin') {
             setUsername('admin');
@@ -74,7 +70,7 @@ function LoginPage() {
         setError('');
     };
 
-    // ─── Render ──────────────────────────────────────────────────────────────────
+    // ─── Render ──────────
     return (
         <div className="login-page">
             {/* Background decorative elements */}
@@ -148,7 +144,7 @@ function LoginPage() {
 
                 {/* Quick Login Hints */}
                 <div className="login-hints">
-                    <p className="hints-title">Quick Login (Demo)</p>
+                    <p className="hints-title"></p>
                     <div className="hints-buttons">
                         <button
                             type="button"
@@ -164,10 +160,6 @@ function LoginPage() {
                         >
                             👤 User Login
                         </button>
-                    </div>
-                    <div className="credentials-info">
-                        <span>Admin: <code>admin / admin123</code></span>
-                        <span>User: <code>user1 / user123</code></span>
                     </div>
                 </div>
             </div>

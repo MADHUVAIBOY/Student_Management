@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import StudentsListPage from './pages/StudentsListPage';
 import AddStudentPage from './pages/AddStudentPage';
+import UsersPage from './pages/UsersPage';
 
 /**
  * App Component — Root component that sets up routing.
@@ -74,6 +75,16 @@ function App() {
                     element={
                         <AdminRoute>
                             <AddStudentPage />
+                        </AdminRoute>
+                    }
+                />
+
+                {/* Admin Only Route - User Management */}
+                <Route
+                    path="/users"
+                    element={
+                        <AdminRoute>
+                            <UsersPage />
                         </AdminRoute>
                     }
                 />

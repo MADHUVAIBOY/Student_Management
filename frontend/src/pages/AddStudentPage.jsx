@@ -32,7 +32,7 @@ function AddStudentPage() {
     const navigate = useNavigate();
 
     // ─── Available Courses & Departments ─────────────────────────────────────────
-    const courses = ['B.Tech', 'M.Tech', 'BCA', 'MCA', 'B.Sc', 'M.Sc', 'MBA', 'B.Com', 'B.A'];
+    const courses = ['B.Tech', 'M.Tech', 'BCA','B.E', 'MCA', 'B.Sc', 'M.Sc', 'MBA', 'B.Com', 'B.A'];
     const departments = [
         'Computer Science',
         'Information Technology',

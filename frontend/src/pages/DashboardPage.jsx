@@ -153,29 +153,6 @@ function DashboardPage() {
                         )}
                     </div>
                 </div>
-
-                {/* System Info */}
-                <div className="system-info-card">
-                    <h3 className="system-info-title">ℹ️ System Information</h3>
-                    <div className="system-info-grid">
-                        <div className="info-item">
-                            <span className="info-label">Backend</span>
-                            <span className="info-value">Spring Boot 3.2</span>
-                        </div>
-                        <div className="info-item">
-                            <span className="info-label">Database</span>
-                            <span className="info-value">MySQL 8</span>
-                        </div>
-                        <div className="info-item">
-                            <span className="info-label">Frontend</span>
-                            <span className="info-value">React 18 + Vite</span>
-                        </div>
-                        <div className="info-item">
-                            <span className="info-label">API URL</span>
-                            <span className="info-value">http://localhost:8080/api</span>
-                        </div>
-                    </div>
-                </div>
             </main>
         </div>
     );
